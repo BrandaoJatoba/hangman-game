@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -60,18 +62,24 @@ int printLetters(vector<char> lettersFound, string testWord){
     return x;
 }
 
-// string chooseWord(){
-//     return "perfeito";
-// }
+string chooseWord(int number){
+    vector<string> listOfWords = {"together","giving","cookies","found","running","additional","chair","value","pleasure","camera","aside","year","root","crack","identity","living","globe","damage","lamp","headed","snake","notice","screen","gate","goes","ear","drink","made","base","coach","eight","forth","garage","dug","carefully","number","basket","arrangement","pick","determine","ever","lamp"};
+    return listOfWords[number];    
+}
 
 void gameStart(){
     //preparation
     printTitle();
     int end = 0;
-    string word = "gorilla";
+    //random word generator
+    srand((unsigned) time(NULL));
+    int randomNumber = (rand() % 36);
+    //get word from list and store data about it
+    string word = chooseWord(randomNumber);
     int wordSize = word.length();
+    //game dificulty
     int guessesLeft = 10;
-    vector<char> found; //has to have constant value. using 32 as a placeholder size
+    vector<char> found; //used vector after array dificulties
     char letter;
     string msg = "\n\n Game Start! \n\n";
     string state="";
@@ -82,7 +90,7 @@ void gameStart(){
         system("CLS");
         if(guessesLeft == 0){
             end = 1;
-            state = "\n \n YOU LOST\n";
+            state = "\n \n YOU LOST\n";            
         }
         letter='0';
         printHangman(guessesLeft);
@@ -105,7 +113,8 @@ void gameStart(){
            
 
     }
-    printf("%s \n", state.c_str());
+    printf("%s \n\n", state.c_str());
+    if(win!=1) printf("The Word was %s \n\n", word.c_str());
     system("PAUSE");
 }
 
